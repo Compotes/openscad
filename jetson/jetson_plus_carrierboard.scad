@@ -85,10 +85,9 @@ module heat_sink() {
 
 module jetson() {
     difference() {
-        // jetson body
+        // jetson body50
         union() {
-            
-            // TTP - grey
+            // TTP - grey - top
             translate([0,0, 3+1.16]) {
                 color([cc(130), cc(130), cc(130), 1]) {
                     cube([87,50, 6.25]);
@@ -102,28 +101,71 @@ module jetson() {
                 }
             }
             
-            // BOTTOM STIFFENER - black
-            color([0, 0, 0, 1]) {
-                cube([87,50, 3]);
+            // TTP - bottom
+            union() {
+                color([cc(250),cc(250),cc(250)]) {
+                    translate([7, 0, 0]) {
+                        cube([73, 36.6, 3]);
+                    }
+                    
+                    translate([0, 7.5, 0]) {
+                        cube([87, 30, 3]);    
+                    }
+                }
+            }
+            
+            // 400 pin connector
+            union() {
+                color([0,0,0]) {
+                    translate([8.2, 48-10, -2.4]) {
+                        cube([70, 10.8, 5.4]);
+                    }
+                }
+            }
+            
+            
+            // Stlpiky
+            translate([0, 0, -3.16]) {
+                union() {            
+                    translate([1.64/2+3.5, 1.64+3.5, -1]) {
+                        rotate([0, 0, 90]) {
+                            cylinder(7.2, 4.4/2, 4.4/2, $fn=6);
+                        }
+                    }
+                               
+                    translate([87-1.64/2-3.5, 1.64+3.5 , -1]) {
+                        rotate([0,0,90]) {
+                            cylinder(7.2, 4.4/2, 4.4/2, $fn=6);
+                        }
+                    }
+                    
+                    translate([1.64/2+3.5, 50-1.64-3.5, -1]) {
+                        cylinder(7.2, 4.4/2, 4.4/2, $fn=6);
+                    }
+                    
+                    translate([87-1.64/2-3.5, 50-1.64-3.5, -1]) {
+                        cylinder(7.2, 4.4/2, 4.4/2, $fn=6);
+                    }
+                }
             }
         }
         
         // holes
         union() {
-            translate([1.64+3.5, 1.64+3.5, -1]) {
-                cylinder(12, 3.5, 3.5);
+            translate([1.64/2+3.5, 1.64+3.5, -5]) {
+                cylinder(16, 3.5/2, 3.5/2);
             }
                        
-            translate([87-1.64-3.5, 1.64+3.5 , -1]) {
-                cylinder(12,3.5,3.5);
+            translate([87-1.64/2-3.5, 1.64+3.5 , -5]) {
+                cylinder(16,3.5/2,3.5/2);
             }
             
-            translate([1.64+3.5, 50-1.64-3.5, -1]) {
-                cylinder(12, 3.5, 3.5);
+            translate([1.64/2+3.5, 50-1.64-3.5, -5]) {
+                cylinder(16, 3.5/2, 3.5/2);
             }
                        
-            translate([87-1.64-3.5, 50-1.64-3.5, -1]) {
-                cylinder(12,3.5,3.5);
+            translate([87-1.64/2-3.5, 50-1.64-3.5, -5]) {
+                cylinder(16,3.5/2,3.5/2);
             }
         }
     }    
@@ -131,16 +173,40 @@ module jetson() {
 
 module carrier_board() {
     
+    // PCB
+    color([cc(0), cc(130), cc(0), 1]) {
+        cube([87, 50, 1.53]);
+    }
+    
+    color([cc(130), cc(130), cc(130), 1]) {
+        translate([10, -5.3, -13.4]) {
+            cube([16.5, 25.8, 13.4]);
+        }
+    }
+    
+    color([cc(0), cc(130), cc(0)]) {
+        translate([43-14.8, 0, -12.44]) {
+            cube([14.8, 1.5, 12.44]) {
+            
+            }
+        }
+    }
 }
 
-module jetson_with_carrierboard(){
-    translate([87,0, 6.25+1.16+3])
-        heat_sink();
+module jetson_with_carrierboard() {
+    translate([0, 0, 5.6+13.4]) {
+        union() {
+            translate([87, 0, 6.25+1.16+3])
+                heat_sink();
 
-    translate([0, 0, 0])
-        jetson();
-
-    carrier_board();
+            translate([0, 0, 0])
+                jetson();
+        }
+    }
+    
+    translate([0, 0, 13.4]) {
+        carrier_board();
+    }
 }
 
 jetson_with_carrierboard();
