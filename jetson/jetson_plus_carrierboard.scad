@@ -175,10 +175,14 @@ module carrier_board() {
     
 }
 
-translate([87,0, 6.25+1.16+7.2])
-    heat_sink();
+module jetson_with_carrierboard(){
+    translate([87,0, 6.25+1.16+3])
+        heat_sink();
 
-translate([0, 0, 4.2])
-    jetson();
+    translate([0, 0, 0])
+        jetson();
 
-carrier_board();
+    carrier_board();
+}
+
+jetson_with_carrierboard();
