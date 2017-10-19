@@ -173,16 +173,40 @@ module jetson() {
 
 module carrier_board() {
     
+    // PCB
+    color([cc(0), cc(130), cc(0), 1]) {
+        cube([87, 50, 1.53]);
+    }
+    
+    color([cc(130), cc(130), cc(130), 1]) {
+        translate([10, -5.3, -13.4]) {
+            cube([16.5, 25.8, 13.4]);
+        }
+    }
+    
+    color([cc(0), cc(130), cc(0)]) {
+        translate([43-14.8, 0, -12.44]) {
+            cube([14.8, 1.5, 12.44]) {
+            
+            }
+        }
+    }
 }
 
-module jetson_with_carrierboard(){
-    translate([87,0, 6.25+1.16+3])
-        heat_sink();
+module jetson_with_carrierboard() {
+    translate([0, 0, 5.6+13.4]) {
+        union() {
+            translate([87, 0, 6.25+1.16+3])
+                heat_sink();
 
-    translate([0, 0, 0])
-        jetson();
-
-    carrier_board();
+            translate([0, 0, 0])
+                jetson();
+        }
+    }
+    
+    translate([0, 0, 13.4]) {
+        carrier_board();
+    }
 }
 
 jetson_with_carrierboard();
