@@ -29,7 +29,6 @@ module heat_sink() {
                                         }
                                     }
                                 }
-                                
                                 translate([-0.01, -2, -1]) {
                                     cube([1.85, 53, 17], 0);
                                 }
@@ -188,6 +187,19 @@ module carrier_board() {
         translate([43-14.8, 0, -12.44]) {
             cube([14.8, 1.5, 12.44]) {
             
+            }
+        }
+    }
+    
+    union() {
+        color([0,0,0]) {
+            translate([8.2, 48-10, 1]) {
+                cube([70, 10.8, 2]);
+            }
+        }
+        color([cc(255), cc(215), 0]) {
+            translate([8.2, 48-10, 1+2]) {
+                cube([70, 10.8, 0.2]);
             }
         }
     }
