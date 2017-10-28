@@ -1,4 +1,4 @@
-use <Holes.scad>;
+use <holes.scad>;
 use <JMP-wheels.scad>;
 $fa = 5;
 $fs = 0.5;
@@ -68,14 +68,14 @@ module hub(height){
 	}
 }
 
-module oska(height, diametre){
+module oska(height, diametre, use_wheel){
 	rotate([0, 0, $t*360]){
 		color([0.9, 0.9, 0.9, 1]) difference(){
 			cylinder(h = height, d = diametre, $fn=6);
 			translate([0, 0, 1.00]) hole_for_screw_M3(height);
 			//#screw();
 		}
-		wheel();
+		if(use_wheel) wheel(true);
 	}
 }
 
@@ -99,12 +99,12 @@ module prevodovka(h1, h2, h3){
 	}
 }
 
-module motor(){
+module motor(use_wheel){
 	translate([3.135, 0, 16.185]) rotate([0, 90, 0]) translate([0, 0, -29.44]) {
 		translate([0, 0, 29.44]) {
 			translate([0, 0, 1.68]) {
 				translate([0, 0, 15.17]) {
-					oska(10.80, 6.92);
+					oska(10.80, 6.92, use_wheel);
 				}
 				prevodovka(3.00, 9.12, 3.05);
 			}
@@ -114,4 +114,4 @@ module motor(){
 	}
 }
 
-motor();
+motor(true);
